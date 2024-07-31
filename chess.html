@@ -35,3 +35,41 @@
   .black {
     background-color: #b58863;
   }
+ .selected {
+    background-color: #7fff00;
+  }
+  .possible-move {
+    background-color: #ff7f50;
+  }
+  #status {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 18px;
+  }
+  #reset {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  .captured-pieces {
+    width: 100px;
+    padding: 10px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+  }
+  .captured-pieces h3 {
+    text-align: center;
+    margin-top: 0;
+  }
+  .piece {
+    font-size: 24px;
+    margin: 2px;
+  }
+</style>
+</head>
+<body>
+<div class="game-container">
+  <div class="captured-pieces" id="ai-captured">
+    <h3>AI Captured</h3>
+  </div>
