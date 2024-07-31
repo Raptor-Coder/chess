@@ -73,3 +73,36 @@
   <div class="captured-pieces" id="ai-captured">
     <h3>AI Captured</h3>
   </div>
+ <div>
+    <div id="chessboard"></div>
+    <div id="status">Your turn! Select a piece to move.</div>
+    <button id="reset">Reset Game</button>
+  </div>
+  <div class="captured-pieces" id="human-captured">
+    <h3>Human Captured</h3>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+<script>
+  const board = document.getElementById('chessboard');
+  const status = document.getElementById('status');
+  const resetButton = document.getElementById('reset');
+  const aiCaptured = document.getElementById('ai-captured');
+  const humanCaptured = document.getElementById('human-captured');
+  let game = new Chess();
+  let selectedSquare = null;
+  let possibleMoves = [];
+  let capturedPieces = { w: [], b: [] };
+
+  function createBoard() {
+    board.innerHTML = '';
+    for (let i = 0; i < 64; i++) {
+      const square = document.createElement('div');
+      square.className = `square ${(i + Math.floor(i / 8)) % 2 === 0 ? 'white' : 'black'}`;
+      square.dataset.square = String.fromCharCode(97 + (i % 8)) + (8 - Math.floor(i / 8));
+      square.addEventListener('click', handleClick);
+      board.appendChild(square);
+    }
+    updateBoard();
+  }
