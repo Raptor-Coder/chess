@@ -1,0 +1,37 @@
+<html><head>
+<title>AI vs Human Chess Game</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+  }
+  .game-container {
+    display: flex;
+    gap: 20px;
+  }
+  #chessboard {
+    width: 400px;
+    height: 400px;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    border: 2px solid #333;
+  }
+  .square {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    cursor: pointer;
+  }
+  .white {
+    background-color: #f0d9b5;
+  }
+  .black {
+    background-color: #b58863;
+  }
