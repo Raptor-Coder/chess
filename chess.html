@@ -181,3 +181,46 @@ game.move(move);
   function checkGameStatus() {
     if (game.game_over()) {
       if (game.in_checkmate()) {
+status.textContent = game.turn() === 'w' ? 'Checkmate! AI wins!' : 'Checkmate! You win!';
+      } else if (game.in_draw()) {
+        status.textContent = 'Game over. It\'s a draw!';
+      } else if (game.in_stalemate()) {
+        status.textContent = 'Game over. Stalemate!';
+      }
+    } else {
+      status.textContent = 'Your turn! Select a piece to move.';
+    }
+  }
+
+  function updateCapturedPieces() {
+    aiCaptured.innerHTML = '<h3>AI Captured</h3>';
+    humanCaptured.innerHTML = '<h3>Human Captured</h3>';
+    
+    capturedPieces['w'].forEach(piece => {
+      const pieceElement = document.createElement('span');
+      pieceElement.className = 'piece';
+      pieceElement.textContent = getPieceSymbol(piece);
+      humanCaptured.appendChild(pieceElement);
+    });
+    
+    capturedPieces['b'].forEach(piece => {
+      const pieceElement = document.createElement('span');
+      pieceElement.className = 'piece';
+      pieceElement.textContent = getPieceSymbol(piece);
+      aiCaptured.appendChild(pieceElement);
+    });
+  }
+
+  function resetGame() {
+    game = new Chess();
+    selectedSquare = null;
+    possibleMoves = [];
+    capturedPieces = { w: [], b: [] };
+    createBoard();
+    status.textContent = 'Your turn! Select a piece to move.';
+  }
+
+  resetButton.addEventListener('click', resetGame);
+  createBoard();
+</script>
+</body></html>
