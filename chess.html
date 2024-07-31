@@ -147,3 +147,37 @@
         if (capturedPiece) {
           capturedPieces['b'].push(capturedPiece);
         }
+game.move(move);
+        selectedSquare = null;
+        possibleMoves = [];
+        updateBoard();
+        checkGameStatus();
+        if (!game.game_over()) {
+          status.textContent = 'AI is thinking...';
+          setTimeout(makeAIMove, 1000);
+        }
+      } else {
+        selectedSquare = null;
+        possibleMoves = [];
+        updateBoard();
+      }
+    }
+  }
+
+  function makeAIMove() {
+    const moves = game.moves({ verbose: true });
+    if (moves.length > 0) {
+      const move = moves[Math.floor(Math.random() * moves.length)];
+      const capturedPiece = game.get(move.to);
+      if (capturedPiece) {
+        capturedPieces['w'].push(capturedPiece);
+      }
+      game.move(move);
+      updateBoard();
+      checkGameStatus();
+    }
+  }
+
+  function checkGameStatus() {
+    if (game.game_over()) {
+      if (game.in_checkmate()) {
