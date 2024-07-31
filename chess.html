@@ -106,3 +106,44 @@
     }
     updateBoard();
   }
+
+  function updateBoard() {
+    const squares = board.getElementsByClassName('square');
+    for (let square of squares) {
+      const piece = game.get(square.dataset.square);
+      square.textContent = piece ? getPieceSymbol(piece) : '';
+      square.classList.remove('selected', 'possible-move');
+    }
+    if (selectedSquare) {
+      document.querySelector(`[data-square="${selectedSquare}"]`).classList.add('selected');
+      possibleMoves.forEach(move => {
+        document.querySelector(`[data-square="${move.to}"]`).classList.add('possible-move');
+      });
+    }
+    updateCapturedPieces();
+  }
+
+  function getPieceSymbol(piece) {
+    const symbols = {
+      'p': '♙', 'n': '♘', 'b': '♗', 'r': '♖', 'q': '♕', 'k': '♔',
+      'P': '♟', 'N': '♞', 'B': '♝', 'R': '♜', 'Q': '♛', 'K': '♚'
+    };
+    return symbols[piece.type];
+  }
+
+  function handleClick(event) {
+    const square = event.target.dataset.square;
+    if (selectedSquare === null) {
+      const piece = game.get(square);
+      if (piece && piece.color === 'w') {
+        selectedSquare = square;
+        possibleMoves = game.moves({ square: square, verbose: true });
+        updateBoard();
+      }
+    } else {
+      const move = possibleMoves.find(m => m.to === square);
+      if (move) {
+        const capturedPiece = game.get(move.to);
+        if (capturedPiece) {
+          capturedPieces['b'].push(capturedPiece);
+        }
